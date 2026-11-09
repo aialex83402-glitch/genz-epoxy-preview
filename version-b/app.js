@@ -46,7 +46,7 @@
     range.addEventListener('pointercancel', release);
     range.addEventListener('blur', release);
 
-    // Intro sweep: start fully "before", reveal the "after" to the midpoint
+    // Intro sweep: start fully "before", then move to the midpoint
     function sweep(from, to, duration) {
       if (reduceMotion) {
         setPos(to);
@@ -68,7 +68,6 @@
       raf = requestAnimationFrame(frame);
     }
 
-    setPos(100);
     var played = false;
     var io = new IntersectionObserver(
       function (entries) {
@@ -76,7 +75,10 @@
           if (entry.isIntersecting && !played) {
             played = true;
             setTimeout(function () {
-              if (!el.classList.contains('interacted')) sweep(100, 50, 1600);
+              if (!el.classList.contains('interacted')) {
+                setPos(100);
+                sweep(100, 50, 1600);
+              }
             }, el.hasAttribute('data-autoplay') ? 350 : 150);
             io.disconnect();
           }
@@ -116,49 +118,16 @@
     });
   }
 
-  /* ---------- Scroll reveals ---------- */
-  var revealTargets = document.querySelectorAll(
-    '.statement, .section-head, .work-item, .services-intro, .service-row, .process-copy, .process-figure, .review, .quote-copy, .quote-form'
-  );
-  revealTargets.forEach(function (n) {
-    n.classList.add('reveal');
-  });
-  var rio = new IntersectionObserver(
-    function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in');
-          rio.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.12, rootMargin: '0px 0px -5% 0px' }
-  );
-  revealTargets.forEach(function (n) {
-    rio.observe(n);
-  });
-
-  /* ---------- Demo quote form ---------- */
+  /* ---------- Preview-only quote form. Nothing is sent or stored. ---------- */
   var form = document.querySelector('.quote-form');
   if (form) {
     var status = form.querySelector('.form-status');
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      status.className = 'form-status';
-      if (!form.checkValidity()) {
-        status.classList.add('err');
-        status.textContent = 'Please add your name, phone number and project type so we can reach you.';
-        var firstInvalid = form.querySelector(':invalid');
-        if (firstInvalid) firstInvalid.focus();
-        return;
+      if (status) {
+        status.className = 'form-status';
+        status.textContent = 'Preview only. Nothing was sent, stored, or monitored.';
       }
-      var data = new FormData(form);
-      var name = (data.get('name') || '').toString().trim().split(' ')[0];
-      var type = (data.get('type') || 'project').toString().toLowerCase();
-      status.classList.add('ok');
-      status.textContent =
-        'Thanks' + (name ? ', ' + name : '') + '. We\u2019ll call about your ' + type + ' shortly. (Demo only: nothing was sent.)';
-      form.reset();
     });
   }
 })();

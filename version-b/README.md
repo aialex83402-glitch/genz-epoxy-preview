@@ -1,50 +1,46 @@
 # GENZ Epoxy
 
-Complete static website source for the GENZ Epoxy concept.
+Static website. Unzip this archive. Its root is the site: `index.html`, `base.css`, `style.css`, `app.js`, and the `assets` folder.
 
-## Deploy on your own server
+## Deploy
 
-No build step, package installation, Node.js runtime, database, or Perplexity hosting is required.
+1. Unzip the archive.
+2. Upload those root files, keeping `assets` beside `index.html`, to the document root you want to serve. Examples are `public_html`, `www`, or `/var/www/html`.
+3. Serve `index.html` as the default page.
 
-1. Unzip this archive.
-2. Upload the contents of the `genz-epoxy` folder to your web server's document root, such as `public_html`, `www`, or `/var/www/html`.
-3. Keep `index.html`, `base.css`, `style.css`, `app.js`, and the `assets` folder together with their existing names.
-4. Serve `index.html` as the default page and enable HTTPS using your hosting provider.
-
-Any standard static-file web server works. Asset paths are relative, so the site can also be hosted inside a subfolder. No URL rewrites are needed.
+No build step, package install, or database is required. Any static-file server works. Paths are relative, so the same files can also sit in a subfolder.
 
 ## Preview locally
 
-From inside this folder, run:
+From the unzipped folder, run:
 
 ```sh
 python3 -m http.server 8080
 ```
 
-Open `http://localhost:8080` in your browser. Stop the server with Ctrl+C.
+Open `http://localhost:8080`. Stop the server with Ctrl+C.
 
 ## Files
 
 - `index.html`: page content, navigation, forms, and metadata.
 - `base.css`: browser resets and base styles.
 - `style.css`: layout, typography, colors, and responsive styles.
-- `app.js`: before/after sliders, mobile menu, animations, and demo form behavior.
-- `assets/`: supplied logo, favicon, and generated sample project images.
+- `app.js`: before/after sliders, mobile menu, animations, and preview form behavior.
+- `assets/`: logo, favicon, sample project images, and flake color tiles.
 
-## External dependencies
+## Fonts
 
-The page loads Barlow Condensed from Google Fonts and Satoshi from Fontshare. All page code and images are included, but the font files are not bundled. Without internet access to those font services, browser fallback fonts will be used. To eliminate those external requests, obtain appropriately licensed font files, host them locally, and replace the font stylesheet links in `index.html` with local `@font-face` definitions.
+The page loads Barlow Condensed from Google Fonts and Satoshi from Fontshare. The font files are not in this archive. Without those services, the browser uses its fallback fonts. To avoid those requests, host font files you have permission to use and replace the font links in `index.html` with local `@font-face` rules.
 
-There are no API keys, paid API dependencies, or required Perplexity services.
+## On this page
 
-## Important before a real business launch
+The quote form is a preview. It does not send, store, or monitor what is typed.
 
-- The quote form is a demo. It validates input and displays a confirmation locally, but it does not send or store submissions. Connect it to your own backend or form service before accepting real leads.
-- Before/after images are generated concept illustrations, not evidence of completed company projects. Replace them with real project photos for production.
-- Reviews and business details are sample content. Verify or replace the service area, hours, services, warranty, installation times, statistics, and testimonials before launch.
-- The phone number used throughout the site is `817-925-8395`, taken from the supplied logo.
-- The site name is GENZ Epoxy. The supplied logo artwork is included as provided.
-- For social sharing on a public domain, update the `og:image` metadata in `index.html` to the full HTTPS URL of your hosted image.
+The Reviews section shows six short customer comments as supplied by the owner, shown with first name and last initial plus the source (Facebook recommendation or Yelp). The comments are kept in the customers’ own words. Edit or remove them in the `#reviews` section of `index.html`.
+
+Before/after images are labeled “AI concept illustration — not an actual customer property.”
+
+Hours are Mon–Sat 7am–6pm. The phone number on the page is 817-925-8395. This version uses the name GENZ Epoxy. The supplied logo artwork is included as provided.
 
 ## Editing
 
