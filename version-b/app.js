@@ -46,6 +46,19 @@
     range.addEventListener('pointercancel', release);
     range.addEventListener('blur', release);
 
+    range.addEventListener('keydown', function (e) {
+      var key = e.key;
+      if (key !== 'ArrowLeft' && key !== 'ArrowRight' && key !== 'ArrowUp' && key !== 'ArrowDown') return;
+      e.preventDefault();
+      stopAnim();
+      markInteracted();
+      var delta = e.shiftKey ? 10 : 5;
+      var cur = parseFloat(range.value);
+      if (isNaN(cur)) cur = 50;
+      if (key === 'ArrowLeft' || key === 'ArrowDown') setPos(cur - delta);
+      else setPos(cur + delta);
+    });
+
     // Intro sweep: start fully "before", then move to the midpoint
     function sweep(from, to, duration) {
       if (reduceMotion) {
@@ -199,6 +212,24 @@
 
     document.addEventListener('click', function (e) {
       if (!collage.contains(e.target)) clearZoom();
+    });
+  }
+
+  /* ---------- Reviews: tap to expand clamped quotes on small screens ---------- */
+  var reviewGrid = document.querySelector('.review-grid');
+  if (reviewGrid) {
+    reviewGrid.querySelectorAll('.review-card').forEach(function (card) {
+      card.setAttribute('aria-expanded', 'false');
+    });
+    reviewGrid.addEventListener('click', function (e) {
+      if (!window.matchMedia('(max-width: 640px)').matches) return;
+      var card = e.target.closest('.review-card');
+      if (!card) return;
+      var on = card.getAttribute('aria-expanded') !== 'true';
+      reviewGrid.querySelectorAll('.review-card').forEach(function (c) {
+        c.classList.toggle('is-expanded', on && c === card);
+        c.setAttribute('aria-expanded', on && c === card ? 'true' : 'false');
+      });
     });
   }
 })();
