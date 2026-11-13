@@ -39,8 +39,8 @@
 
     <link rel="preload" as="image" href="./assets/after-garage.webp" />
     <link rel="preload" as="image" href="./assets/before-garage.webp" />
-    <link rel="stylesheet" href="./base.css?v=r18" />
-    <link rel="stylesheet" href="./style.css?v=r18" />
+    <link rel="stylesheet" href="./base.css?v=r19" />
+    <link rel="stylesheet" href="./style.css?v=r19" />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -511,12 +511,12 @@
           <div class="quote-copy">
             <p class="kicker"><span class="dot"></span>Start your project</p>
             <h2 class="display-md" id="quote-title">Let's transform <em>your space.</em></h2>
-            <p class="section-lede">Call during open hours, or look through the preview form. The form is not connected and does not send a request.</p>
+            <p class="section-lede">Call during open hours, or send a request and we’ll follow up.</p>
             <a class="quote-phone" href="tel:+18179258395">817-925-8395</a>
             <p class="quote-area">Based in Burleson, TX · Serving DFW and surrounding areas · up to about 200 miles · Mon–Sat 7am–6pm</p>
             <p class="quote-area">We come to you. No minimum job size. A travel fee may apply outside the main area. Custom quotes only. Cash, check, card, Zelle, and Venmo. A typical garage installation takes about 1–2 days.</p>
           </div>
-          <form class="quote-form" action="javascript:void(0)" method="post" novalidate onsubmit="return false;">
+          <form class="quote-form" method="post" novalidate>
             <div class="field-grid">
               <label class="field">
                 <span>Name</span>
@@ -563,13 +563,17 @@
                 <span>Project notes</span>
                 <textarea name="notes" rows="3" placeholder="Cracks, old coating, timeline…"></textarea>
               </label>
+              <label class="hp" aria-hidden="true">
+                <span>Company</span>
+                <input type="text" name="company" tabindex="-1" autocomplete="off" />
+              </label>
               <label class="field field-full consent">
                 <input type="checkbox" name="followup_consent" value="yes" />
-                <span>Optional, and not required. If a live form is connected later, I understand GENZ Epoxy may follow up about my quote by phone, text, or email. This preview does not send or store what I type.</span>
+                <span>Optional. I understand GENZ Epoxy may follow up about my quote by phone, text, or email.</span>
               </label>
             </div>
-            <button class="btn btn-primary btn-lg" type="submit">Preview only — does not send</button>
-            <p class="form-privacy">This form is a preview only and is not connected to email, text, or any other destination. Nothing you type is sent, stored, or monitored, and using the button does not submit a quote request. If a live form is added later, the intended follow-up is a phone call, text, or email about the quote. That live form is not active and would need its own review before it collects anything. This preview does not promise how long information would be kept or how it would be protected.</p>
+            <button class="btn btn-primary btn-lg" type="submit">Request a quote</button>
+            <p class="form-privacy">This request is emailed to GENZ Epoxy and stored so they can follow up. Call 817-925-8395 if you would rather not use the form.</p>
             <div class="form-status" role="status" aria-live="polite"></div>
           </form>
         </div>
@@ -602,6 +606,6 @@
       <p class="container footer-extra">Custom quotes only. Cash, check, card, Zelle, and Venmo. No minimum job size. A travel fee may apply outside the main area. We come to you.</p>
     </footer>
 
-    <script src="./app.js?v=r18" defer></script>
+    <script src="./app.js?v=r19" defer></script>
   </body>
 </html>

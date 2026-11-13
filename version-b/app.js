@@ -131,16 +131,89 @@
     });
   }
 
-  /* ---------- Preview-only quote form. Nothing is sent or stored. ---------- */
+  /* ---------- Quote form → Google Apps Script web app ---------- */
+  /* Set this to the deployed Web app URL after Apps Script authorization. */
+  var QUOTE_FORM_ENDPOINT = "";
+
   var form = document.querySelector('.quote-form');
   if (form) {
     var status = form.querySelector('.form-status');
-    form.addEventListener('submit', function (e) {
+    var submitBtn = form.querySelector('button[type="submit"]');
+
+    function setStatus(kind, message) {
+      if (!status) return;
+      status.className = "form-status" + (kind ? " " + kind : "");
+      status.textContent = message;
+    }
+
+    form.addEventListener("submit", function (e) {
       e.preventDefault();
-      if (status) {
-        status.className = 'form-status';
-        status.textContent = 'Preview only. Nothing was sent, stored, or monitored.';
+      var fd = new FormData(form);
+      var name = (fd.get("name") || "").toString().trim();
+      var email = (fd.get("email") || "").toString().trim();
+      var phone = (fd.get("phone") || "").toString().trim();
+      if (!name || (!email && !phone)) {
+        setStatus("err", "Please add your name and a phone number or email.");
+        return;
       }
+      if (!QUOTE_FORM_ENDPOINT) {
+        setStatus(
+          "err",
+          "The form is not connected yet. Please call 817-925-8395 or email genzepoxy@gmail.com."
+        );
+        return;
+      }
+
+      var payload = {
+        name: name,
+        email: email,
+        phone: phone,
+        city: (fd.get("city") || "").toString().trim(),
+        space: (fd.get("space") || "").toString().trim(),
+        sqft: (fd.get("sqft") || "").toString().trim(),
+        finish: (fd.get("finish") || "").toString().trim(),
+        notes: (fd.get("notes") || "").toString().trim(),
+        followup_consent: fd.get("followup_consent") ? "yes" : "",
+        company: (fd.get("company") || "").toString(),
+        source: window.location.href
+      };
+
+      if (submitBtn) submitBtn.disabled = true;
+      setStatus("", "Sending your request…");
+
+      fetch(QUOTE_FORM_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload)
+      })
+        .then(function (res) {
+          return res.json().then(function (data) {
+            return { okHttp: res.ok, data: data };
+          }, function () {
+            return { okHttp: res.ok, data: null };
+          });
+        })
+        .then(function (result) {
+          var data = result.data || {};
+          if (result.okHttp && data.ok !== false) {
+            setStatus("ok", "Thanks — we received your request and will follow up soon.");
+            form.reset();
+          } else {
+            setStatus(
+              "err",
+              data.error || "Something went wrong. Please call 817-925-8395 or email genzepoxy@gmail.com."
+            );
+          }
+        })
+        .catch(function () {
+          setStatus(
+            "err",
+            "Something went wrong. Please call 817-925-8395 or email genzepoxy@gmail.com."
+          );
+        })
+        .then(function () {
+          if (submitBtn) submitBtn.disabled = false;
+        });
     });
   }
 
