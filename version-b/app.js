@@ -133,7 +133,7 @@
 
   /* ---------- Quote form → Google Apps Script web app ---------- */
   /* Set this to the deployed Web app URL after Apps Script authorization. */
-  var QUOTE_FORM_ENDPOINT = "";
+  var QUOTE_FORM_ENDPOINT = "https://script.google.com/macros/s/AKfycbzOCSKRJaCCNnke9800G3LdeVU19SkIY3ibBtQabwsptddJ8NbS2Qur6NUSV_kMYYsy/exec";
 
   var form = document.querySelector('.quote-form');
   if (form) {
