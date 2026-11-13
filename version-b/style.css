@@ -698,10 +698,17 @@ h3 {
 
 
 .work-item-feature {
-  max-width: 640px; /* ~half of the 1280px container used in r11 */
+  max-width: 640px; /* current size kept on mobile / small screens */
   width: 100%;
   margin-inline: auto;
   margin-bottom: var(--space-12);
+}
+@media (min-width: 1025px) {
+  /* Restore pre-r12 full container width on desktop only */
+  .work-item-feature {
+    max-width: none;
+    margin-inline: 0;
+  }
 }
 .work-item-feature .compare {
   border-radius: var(--radius-lg);
