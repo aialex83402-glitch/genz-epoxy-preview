@@ -1551,4 +1551,59 @@ h3 {
   .review-source {
     font-size: 0.7rem;
   }
+
+  .services {
+    padding-block: var(--space-10);
+  }
+  .services-inner {
+    gap: var(--space-4);
+  }
+  .services-intro .kicker {
+    margin-bottom: var(--space-2);
+  }
+  .services-intro .display-md {
+    font-size: var(--text-xl);
+  }
+  .services-intro .section-lede {
+    margin-top: var(--space-2);
+    font-size: var(--text-sm);
+  }
+  .service-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 0;
+    border-top: 0;
+  }
+  .service-row {
+    display: grid;
+    grid-template-columns: 1.35rem minmax(0, 1fr);
+    gap: 0.15rem 0.45rem;
+    align-items: start;
+    padding: 0.65rem 0.7rem;
+    border: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+  }
+  .service-num {
+    font-size: 0.75rem;
+    line-height: 1.4;
+  }
+  .service-body h3 {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.25;
+  }
+  .service-body p {
+    margin-top: 0.2rem;
+    font-size: 0.75rem;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+  .service-meta {
+    display: none;
+  }
 }
