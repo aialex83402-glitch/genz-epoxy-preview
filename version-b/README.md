@@ -26,7 +26,7 @@ Open `http://localhost:8080`. Stop the server with Ctrl+C.
 - `base.css`: browser resets and base styles.
 - `style.css`: layout, typography, colors, and responsive styles.
 - `app.js`: before/after sliders, mobile menu, animations, and preview form behavior.
-- `assets/`: logo, favicon, sample project images, and flake color tiles.
+- `assets/`: logo, favicon, sample project images, flake color tiles, and `assets/photos/` (web-sized owner photos).
 
 ## Fonts
 
@@ -38,7 +38,9 @@ The quote form is a preview. It does not send, store, or monitor what is typed.
 
 The Reviews section shows six short customer comments as supplied by the owner, shown with first name and last initial plus the source (Facebook recommendation or Yelp). The comments are kept in the customers’ own words. Edit or remove them in the `#reviews` section of `index.html`.
 
-Before/after images are labeled “AI concept illustration — not an actual customer property.”
+The Work section opens with a real before/after slider (stained concrete to a finished flake floor) and a compact 12-photo collage of finished floors, with no captions. Hover (or tap on touch) enlarges a photo about 30%. The two later sliders, and the hero slider, are still AI concept illustrations labeled “AI concept illustration — not an actual customer property.”
+
+This version does not mention a warranty or written warranty terms.
 
 Hours are Mon–Sat 7am–6pm. The phone number on the page is 817-925-8395. This version uses the name GENZ Epoxy. The supplied logo artwork is included as provided.
 

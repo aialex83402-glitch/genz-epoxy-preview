@@ -130,4 +130,75 @@
       }
     });
   }
+
+  /* ---------- Work collage zoom (hover is CSS; tap/keyboard toggles) ---------- */
+  var collage = document.querySelector('.photo-collage');
+  if (collage) {
+    var items = collage.querySelectorAll('.collage-item');
+    var fineHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    var reduceZoom = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function setOrigin(item) {
+      var rect = item.getBoundingClientRect();
+      var vw = window.innerWidth;
+      var vh = window.innerHeight;
+      var extraX = (rect.width * 0.56) / 2 + 8;
+      var extraY = (rect.height * 0.56) / 2 + 8;
+      var x = 'center';
+      var y = 'center';
+      if (rect.left < extraX) x = 'left';
+      else if (vw - rect.right < extraX) x = 'right';
+      if (rect.top < extraY) y = 'top';
+      else if (vh - rect.bottom < extraY) y = 'bottom';
+      var img = item.querySelector('img');
+      if (img) img.style.transformOrigin = x + ' ' + y;
+    }
+
+    function clearZoom(except) {
+      items.forEach(function (item) {
+        if (item !== except) {
+          item.classList.remove('is-zoomed');
+          item.setAttribute('aria-pressed', 'false');
+        }
+      });
+    }
+
+    function toggleZoom(item) {
+      if (reduceZoom) return;
+      var on = !item.classList.contains('is-zoomed');
+      clearZoom(on ? item : null);
+      if (on) {
+        setOrigin(item);
+        item.classList.add('is-zoomed');
+        item.setAttribute('aria-pressed', 'true');
+      } else {
+        item.classList.remove('is-zoomed');
+        item.setAttribute('aria-pressed', 'false');
+      }
+    }
+
+    items.forEach(function (item) {
+      item.addEventListener('pointerenter', function () {
+        setOrigin(item);
+      });
+      item.addEventListener('click', function (e) {
+        if (fineHover) return; /* desktop hover already enlarges */
+        e.preventDefault();
+        toggleZoom(item);
+      });
+      item.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleZoom(item);
+        }
+        if (e.key === 'Escape') {
+          clearZoom();
+        }
+      });
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!collage.contains(e.target)) clearZoom();
+    });
+  }
 })();
